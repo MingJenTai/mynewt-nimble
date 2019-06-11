@@ -41,6 +41,8 @@ extern "C" {
 typedef uint32_t ble_npl_time_t;
 typedef int32_t ble_npl_stime_t;
 
+extern volatile int ble_npl_in_critical;
+
 struct ble_npl_event {
     bool queued;
     ble_npl_event_fn *fn;
@@ -282,6 +284,7 @@ static inline uint32_t
 ble_npl_hw_enter_critical(void)
 {
     vPortEnterCritical();
+    ++ble_npl_in_critical;
     return 0;
 }
 
@@ -289,7 +292,19 @@ static inline void
 ble_npl_hw_exit_critical(uint32_t ctx)
 {
     vPortExitCritical();
+    --ble_npl_in_critical;
 
+}
+
+static inline bool
+ble_npl_hw_is_in_critical(void)
+{
+    /*
+     * XXX Currently RIOT does not support an API for finding out if interrupts
+     *     are currently disabled, hence in a critical section in this context.
+     *     So for now, we use this global variable to keep this state for us.
+    -*/
+    return (ble_npl_in_critical > 0);
 }
 
 #ifdef __cplusplus

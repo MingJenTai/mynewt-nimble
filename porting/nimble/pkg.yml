@@ -34,9 +34,9 @@ pkg.deps:
     - nimble/host/services/lls
     - nimble/host/services/tps
     - nimble/transport
-    - "@apache-mynewt-core/sys/console/stub"
-    - "@apache-mynewt-core/sys/log/stub"
-    - "@apache-mynewt-core/sys/stats/stub"
+    #- "@apache-mynewt-core/sys/console/stub"
+    #- "@apache-mynewt-core/sys/log/stub"
+    #- "@apache-mynewt-core/sys/stats/stub"
 
 # No need to build files from this package
 pkg.ign_files:

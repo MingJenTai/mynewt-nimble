@@ -89,8 +89,9 @@ ble_gatts_flags_to_str(uint16_t flags, char *buf,
     return buf;
 }
 
-
+#ifndef STRINGIFY
 #define STRINGIFY(X) #X
+#endif // STRINGIFY
 #define FIELD_NAME_LEN STRINGIFY(12)
 #define FIELD_INDENT STRINGIFY(2)
 
